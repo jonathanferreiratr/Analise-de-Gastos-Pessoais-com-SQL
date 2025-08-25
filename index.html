@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Gastos Pessoais</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>💸 Análise de Gastos Pessoais</h1>
+        <p class="subtitle">Visualize e analise seus gastos para tomar melhores decisões financeiras</p>
+    </header>
+    
+    <div class="add-expense-form">
+        <h2>Adicionar Nova Despesa</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="expenseDate">Data</label>
+                <input type="date" id="expenseDate" required>
+            </div>
+            <div class="form-group">
+                <label for="expenseDescription">Descrição</label>
+                <input type="text" id="expenseDescription" placeholder="Ex: Supermercado" required>
+            </div>
+            <div class="form-group">
+                <label for="expenseCategory">Categoria</label>
+                <select id="expenseCategory" required>
+                    <option value="">Selecione...</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Moradia">Moradia</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Entretenimento">Entretenimento</option>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Tecnologia">Tecnologia</option>
+                    <option value="Vestuário">Vestuário</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="expenseValue">Valor (R$)</label>
+                <input type="number" id="expenseValue" min="0.01" step="0.01" placeholder="0,00" required>
+            </div>
+            <div class="form-group">
+                <label for="expensePayment">Forma de Pagamento</label>
+                <select id="expensePayment" required>
+                    <option value="">Selecione...</option>
+                    <option value="Cartão Crédito">Cartão Crédito</option>
+                    <option value="Cartão Débito">Cartão Débito</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Transferência">Transferência</option>
+                    <option value="PIX">PIX</option>
+                </select>
+            </div>
+        </div>
+        <button id="addExpenseBtn">Adicionar Despesa</button>
+    </div>
+    
+    <div class="filters">
+        <select id="monthFilter">
+            <option value="all">Todos os meses</option>
+            <option value="0">Janeiro</option>
+            <option value="1">Fevereiro</option>
+            <option value="2">Março</option>
+            <option value="3">Abril</option>
+            <option value="4">Maio</option>
+            <option value="5">Junho</option>
+            <option value="6">Julho</option>
+            <option value="7">Agosto</option>
+            <option value="8">Setembro</option>
+            <option value="9">Outubro</option>
+            <option value="10">Novembro</option>
+            <option value="11">Dezembro</option>
+        </select>
+        
+        <select id="categoryFilter">
+            <option value="all">Todas as categorias</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Moradia">Moradia</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Entretenimento">Entretenimento</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Educação">Educação</option>
+            <option value="Tecnologia">Tecnologia</option>
+            <option value="Vestuário">Vestuário</option>
+        </select>
+        
+        <button id="applyFilters">Aplicar Filtros</button>
+        <button id="resetDataBtn" style="background: #e74c3c;">Resetar Dados</button>
+    </div>
+    
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-label">Gasto Total</div>
+            <div class="stat-value" id="totalExpense">R$ 0,00</div>
+            <div class="stat-detail" id="totalTransactions">0 transações</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-label">Maior Despesa</div>
+            <div class="stat-value" id="maxExpense">R$ 0,00</div>
+            <div class="stat-detail" id="maxExpenseCategory">-</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-label">Média Mensal</div>
+            <div class="stat-value" id="avgMonthly">R$ 0,00</div>
+            <div class="stat-detail">por mês</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-label">Categoria Principal</div>
+            <div class="stat-value" id="mainCategory">-</div>
+            <div class="stat-detail" id="mainCategoryValue">R$ 0,00</div>
+        </div>
+    </div>
+    
+    <div class="dashboard">
+        <div class="card">
+            <h2>Distribuição por Categoria</h2>
+            <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Evolução Mensal</h2>
+            <div class="chart-container">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Top 5 Maiores Gastos</h2>
+            <ul class="category-list" id="topExpenses">
+                <li class="category-item">Nenhuma despesa cadastrada</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>Métodos de Pagamento</h2>
+            <div class="chart-container">
+                <canvas id="paymentChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Dashboard de Análise de Gastos Pessoais - Dados armazenados localmente no navegador</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
